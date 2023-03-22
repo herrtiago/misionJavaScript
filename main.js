@@ -4,8 +4,10 @@ const inputBusqueda = document.getElementById("busquedaNombre");
 const btnRegistro = document.getElementById("btnRegistro");
 const listaPersonas = JSON.parse(localStorage.getItem('listaPersonas')) || [];
 cargarTabla()
-console.log(listaPersonas);
+
 function cargarTabla() {
+    organizarLista();
+    const areasImpresas = [];
     listaPersonas.forEach(i => {
         const personaTemp = new Persona(i.nombres, i.apellidos, i.area, i.usuario, i.edad, i.direccion, i.email);
         const fila = document.createElement("tr");
@@ -15,7 +17,10 @@ function cargarTabla() {
         const casillaUsuario = document.createElement("td");
         const casillaEmail = document.createElement("td");
 
-        casillaArea.innerText = personaTemp.area;
+        if (!areasImpresas.includes(i.area)) {
+            casillaArea.innerText = personaTemp.area;
+            areasImpresas.push(i.area);
+        }
         casillaNombres.innerText = personaTemp.nombreCompleto();
         casillaEdad.innerText = personaTemp.edad;
         casillaUsuario.innerText = personaTemp.usuario;
@@ -30,7 +35,27 @@ function cargarTabla() {
     });
 }
 
+
 btnRegistro.addEventListener("click", () => {
     location.href = "./registro.html";
 });
 
+function organizarLista() {
+    listaPersonas.sort((persona1, persona2) => {
+        if (persona1.area < persona2.area) {
+            return -1;
+        }
+        if (persona1.area > persona2.area) {
+            return 1;
+        }
+        return 0;
+    });
+}
+
+  
+  inputBusqueda.addEventListener("input", () => {
+    console.log("entra")
+});
+
+
+  

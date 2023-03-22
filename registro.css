@@ -16,7 +16,7 @@ body {
 #btnEnviar {
     border-radius: 90px;
     width: 60%;
-    height: 50%;
+    height: 50px;
     background-color: var(--rojo);
     border: 2px var(--rojo) solid;
     color: white;
